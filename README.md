@@ -21,3 +21,14 @@ Inside the `src/config` folder create a new file `config.json` and add the follo
 
 ```
 - Once you have added your db config as listed above, go to the src folder from your terminal and execute `npx sequelize db:create`.
+
+
+## DB Design
+  - Airplane Table
+  - Flight
+  - Airport
+  - City
+
+  - A flight belongs to an airplane but one airplane can be used in multiple flights.
+  - An airport belongs to one city but a city can have many airports.
+  - A flight belongs to one airport but an airport can have many flights.
