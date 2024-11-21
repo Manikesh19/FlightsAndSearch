@@ -32,3 +32,9 @@ Inside the `src/config` folder create a new file `config.json` and add the follo
   - A flight belongs to an airplane but one airplane can be used in multiple flights.
   - An airport belongs to one city but a city can have many airports.
   - A flight belongs to one airport but an airport can have many flights.
+
+  ## Tables
+
+  ### City -> id, Name, created_at, udated_at
+  ### Airport -> id, Name, address, city_id, created_at, updated_at
+      Relationship -> City has many airports and Airport belongs to a city (one to many)
