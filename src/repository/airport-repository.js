@@ -1,23 +1,9 @@
+const CrudRepository= require('./crud-repository');
 const { Airport }= require('../models/index');
-
-class AirportRepository {
-    async createAirport() {
-
+class AirportRepository extends CrudRepository {
+    constructor() {
+        super(Airport);
     }
-
-    async deleteAirport() {
-
-    }
-
-    async updateAirport() {
-
-    }
-
-    async getAirport() {
-        
-    }
- 
 }
 
-
-module.exports= AirportRepository;
+module.exports=AirportRepository;
