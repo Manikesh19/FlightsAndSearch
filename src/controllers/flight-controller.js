@@ -1,6 +1,6 @@
 const {response} = require('express');
 const {FlightService}= require('../services/index');
-
+const {SuccessCodes} =require('../utils/error-codes');
 const flightService=new FlightService();
 
 const create = async(req, res) => {
@@ -15,7 +15,7 @@ const create = async(req, res) => {
             price:req.body.price
         }
         const flight=await flightService.createFlight(flightRequestData);
-        return res.status(201).json({
+        return res.status(SuccessCodes.Created).json({
             data:flight,
             success:true,
             message:"Succesfully created a flight",
@@ -35,7 +35,7 @@ const create = async(req, res) => {
 const destroy = async (req, res) => {
     try {
         const response = await flightService.deleteFlight(req.params.id);
-        return res.status(200).json({
+        return res.status(SuccessCodes.OK).json({
             data:response,
             success: true,
             message:"Sucessfully deleted a flight",
@@ -54,13 +54,13 @@ const destroy = async (req, res) => {
 
 const get = async(req, res) => {
     try {
-        const flight = await flightService.getFlightData(req.params.id);
-        return res.status(200).json({
-        data:flight,
+        const response = await flightService.getFlight(req.params.id);
+        return res.status(SuccessCodes.OK).json({
+        data:response,
         success:true,
         message:"Successfully fetched the flight",
         err:{}
-      })
+      });
     } catch (error) {
         console.log(error);
         return res.status(500).json({
@@ -76,7 +76,7 @@ const get = async(req, res) => {
 const getAll = async(req,res) => {
     try {
         const flights= await flightService.getAllFlightData(req.query);
-        return res.status(200).json({
+        return res.status(SuccessCodes.OK).json({
             data: flights,
             success:true,
             message: "Successfully fetched all the flights",
@@ -94,9 +94,29 @@ const getAll = async(req,res) => {
     }
 }
 
+const update = async(req, res) => {
+    try {
+        const response = await flightService.updateFlight(req.params.id, req.body);
+        return res.status(SuccessCodes.OK).json({
+            data: response,
+            success: true,
+            message: "Successfully updated the flight",
+            err:{}
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            data:{},
+            success: false,
+            message: "Not able to update the flight",
+            err: error
+        });
+    }
+}
 module.exports= {
     create,
     destroy,
     get,
-    getAll
+    getAll,
+    update
 }
